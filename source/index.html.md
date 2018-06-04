@@ -3,6 +3,7 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
+  - python
 
 toc_footers:
   - <a href='https://blackruby.studio'>BlackRuby Homepage</a>
@@ -17,12 +18,9 @@ search: true
 
 ## iMMS API
 
-iMMS API는 iMMS 서버에 연동하여 서비스를 제공하기 위한 API입니다. 
-You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+iMMS API는 iMMS 서버에 연동하여 서비스를 제공하기 위한 API이며, 개발자, 영업 사원, 개발 팀장이 자신의 혹의 자신이 소속된 팀의 일정을 볼 수 있는 서비스입니다.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+좌측에는 메소드와 파라미터에 대한 설명을 명시했으며, 우측에는 shell과 python을 이용한 코드 예시를 보여줍니다. 우측 상단에서 예시 언어를 변경 할 수 있습니다.
 
 # Authentication
 
@@ -32,6 +30,11 @@ This example API documentation page was created with [Slate](https://github.com/
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
   -H "Authorization: meowmeowmeow"
+```
+
+```python
+# With shell, you can just pass the correct header with each request
+
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
@@ -54,7 +57,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 curl "http://example.com/api/daily/1/1803
 ```
 
-> 개발자 직원의 Response:
+```python
+curl "http://example.com/api/daily/1/1803
+```
+
+> 개발자의 Response:
 
 ```json
 {
@@ -94,15 +101,38 @@ curl "http://example.com/api/daily/1/1803
 }
 ```
 
-사용자의 이번 달 일정 호출. 서버에서 header 값의 토큰값을 기준으로 권한을 확인하여 등록 여부 결정. 사용자의 정보를 url에 별도로 명시하여 팀장이 해당 팀 소속 팀원의 일정을 열람 할 수 있음.
+사용자의 이번 달 일정을 호출. header의 토큰값을 기준으로 사용자의  계정과 권한을 확인하여 일정 등록 여부를 결정. 개발자 팀원의 경우, 자신의 일정만 볼 수 있고, 영업직은 자신이 프로젝트 일정을 열람 가능하고, 개발 팀장의 경우 팀 소속 모든 팀원들의 일정 열람 가능.
 
 ### HTTP Request
 
-`GET /daily/`
-`GET /daily/{user}`
-`GET /daily/{user}/{yymm}`
+기본 경로: `GET /calendars/`
 
-`user`와 `month`의 경우 모두 생략 가능. `user`가 생략될 경우 자신의 일정을 불러오고, `month`가 생략될 경우 이번달 일정을 불러옴.
+날짜 명시: `GET /calendars/{yymm}`
+
+팀내 타 사용자의 일정 열람: `GET /calendar/{yymm}/{user}`
+
+### Arguments
+
+Parameter | Description
+--------- |-----------
+yymm | 날짜
+user | 사용자 ID
+
+- 기본 경로로 호출할 경우 로그인한 유저의 이번달 일정 반환. 
+- 날짜를 명시해서 호출할 경우 해당 개월의 일정이 반환되며, url은 바뀌지 않게 할 에정. 
+- 팀장이 자신의 팀 소속 다른 팀원의 일정에 접속할 경우, `yymm`과 해당 `user`의 ID로 호출. 
+
+### Returns
+
+Parameter | Description
+--------- |-----------
+user | 사용자 ID
+yymm | 날짜
+worktimes | 일정 리스트
+date | 날짜
+time | 근무 시간
+project | 진행한 프로젝트 갯수
+worker | 프로젝트에 참여한 인원수
 
 
 ## Post my schedule
@@ -114,6 +144,11 @@ curl -X POST "http://example.com/api/daily/2 \
 -d time=8
 ```
 
+```python
+curl -X POST "http://example.com/api/daily/2 \
+
+```
+
 > Response:
 
 ```json
@@ -122,11 +157,11 @@ curl -X POST "http://example.com/api/daily/2 \
 }
 ```
 
-개인별 일정 등록. 개발자 사용자의 경우 일정한 규칙에 따라 일정을 등록해야 하며, 규칙에 맞지 않는다면 실패 메세지 전송. 관리자의 경우 일정 등록에 대해 근로기준법을 위반하는 입력 값외에 모두 입력 가능.
+개인별 일정 등록. 개발자의 경우 일정한 규칙에 따라 일정을 등록해야 하며, 규칙에 맞지 않는다면 실패 메세지 반환. 개발 팀장의 경우 근로기준법을 위반하는 입력 값을 제외하고 모두 입력 가능.
 
 ### HTTP Request
 
-`POST /daily/{user}`
+`POST /calendar/{user}`
 
 ### Arguments
 
@@ -134,12 +169,13 @@ Parameter | Description
 --------- |-----------
 user | 사용자 ID
 date | 입력하는 날짜
+time | 근무 시간
 
 ### Returns
 
 Parameter | Description
 --------- |-----------
-response | 성공 여부
+response | 결괏값
 
 # 통계
 
@@ -155,7 +191,7 @@ curl "http://example.com/api/excel/2
 .csv file
 ```
 
-데이터 엑셀 추출.
+유형별 엑셀 추출.
 
 ### HTTP Request
 
