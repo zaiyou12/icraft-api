@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>ICRAFT API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,8 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -223,7 +222,7 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#imms-api" class="toc-h2 toc-link" data-title="imms-api">iMMS API</a>
+                    <a href="#icraft-api" class="toc-h2 toc-link" data-title="icraft-api">ICRAFT API</a>
                   </li>
               </ul>
           </li>
@@ -231,21 +230,35 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
           </li>
           <li>
-            <a href="#b2cb2d404f" class="toc-h1 toc-link" data-title="">일정</a>
+            <a href="#disclosure" class="toc-h1 toc-link" data-title="disclosure">Disclosure</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-my-calendar" class="toc-h2 toc-link" data-title="get-my-calendar">Get my Calendar</a>
+                    <a href="#get" class="toc-h2 toc-link" data-title="get">Get</a>
                   </li>
                   <li>
-                    <a href="#post-my-schedule" class="toc-h2 toc-link" data-title="post-my-schedule">Post my schedule</a>
+                    <a href="#post" class="toc-h2 toc-link" data-title="post">Post</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#4938fae00b" class="toc-h1 toc-link" data-title="">통계</a>
+            <a href="#news" class="toc-h1 toc-link" data-title="news">News</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#9d7b728bb8" class="toc-h2 toc-link" data-title="">엑셀 추출</a>
+                    <a href="#get-2" class="toc-h2 toc-link" data-title="get">GET</a>
+                  </li>
+                  <li>
+                    <a href="#post-2" class="toc-h2 toc-link" data-title="post">POST</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#recruit" class="toc-h1 toc-link" data-title="recruit">Recruit</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-3" class="toc-h2 toc-link" data-title="get">GET</a>
+                  </li>
+                  <li>
+                    <a href="#post-3" class="toc-h2 toc-link" data-title="post">POST</a>
                   </li>
               </ul>
           </li>
@@ -254,109 +267,95 @@
           </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='https://blackruby.studio'>BlackRuby Homepage</a></li>
+            <li><a href='https://www.icraft21.com'>ICRAFT Homepage</a></li>
+            <li>Made by <a href='https://blackruby.studio'>BlackRubyStudio</a></li>
+            <li>info@blackrubystudio.com</li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1><h2 id='imms-api'>iMMS API</h2>
-<p>iMMS API는 iMMS 서버에 연동하여 서비스를 제공하기 위한 API이며, 개발자, 영업 사원, 개발 팀장이 자신의 혹의 자신이 소속된 팀의 일정을 볼 수 있는 서비스입니다.</p>
+        <h1 id='introduction'>Introduction</h1><h2 id='icraft-api'>ICRAFT API</h2>
+<blockquote>
+<p>API Endpoint</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>https://api.icraft21.com/prod/
+</code></pre>
+<p>ICRAFT API는 아이크래프트 홈페이지와 연동하여 뉴스/주가/공시 정보/채용 정보등을 제공하기 위한 API입니다. 아이크래프트에 관심이 있고 소식을 받아 보고 싶으신 분들을 위하여 API 문서를 공개합니다.</p>
 
-<p>좌측에는 메소드와 파라미터에 대한 설명을 명시했으며, 우측에는 shell과 python을 이용한 코드 예시를 보여줍니다. 우측 상단에서 예시 언어를 변경 할 수 있습니다.</p>
+<p>API는 사용하기 최대한 용이하게 설계되어 있어, 각 object의 parameter만 파악하시면 쉽게 사용하실 수 있습니다.</p>
+
+<p>좌측에는 호출하는 함수와 함수에 필요한 변수를 표시했으며, 우측에는 javascript를 이용해서 웹에서 호출할 수 있는 코드 예시를 보여줍니다.</p>
+
+<p>문서상이나 API 자체에 문제가 있거나 건의사항이 있을 경우 언제든 <code>info@blackrubystudio.com</code>이나 <a href="https://github.com/zaiyou12/icraft-api">Github repository</a>로 문의 주세요. </p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>구체적인 방법은 SDK와 토큰을 발급 받을 시, 코드 예시와 주석을 참고해주세요.</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 
+<p>정보를 받아보기 위한 <code>GET</code> 메소드에서는 특별한 인증 절차가 없습니다.</p>
+
+<aside class="warning">
+ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사용할 수 있습니다. 계정등록을 원하신다면 <strong>info@blackrubystudio.com</strong>으로 연락주시기 바랍니다. 
+</aside>
+<h1 id='disclosure'>Disclosure</h1><h2 id='get'>Get</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/disclosure?page='</span> <span class="o">+</span> <span class="nx">pageNum</span> <span class="o">+</span> <span class="s1">'&amp;search'</span> <span class="o">+</span> <span class="nx">searchString</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='b2cb2d404f'>일정</h1><h2 id='get-my-calendar'>Get my Calendar</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/daily/1/1803
-</span></code></pre><pre class="highlight python tab-python"><code><span class="n">curl</span> <span class="s">"http://example.com/api/daily/1/1803</span><span class="err">
-</span></code></pre>
-<blockquote>
-<p>개발자의 Response:</p>
+<p>Example Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="err">'user'</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
-    </span><span class="err">'yymm'</span><span class="p">:</span><span class="w"> </span><span class="mi">1803</span><span class="p">,</span><span class="w">
-    </span><span class="err">'worktimes'</span><span class="p">:[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="err">'date'</span><span class="p">:</span><span class="w"> </span><span class="mi">20180301</span><span class="p">,</span><span class="w">
-            </span><span class="err">'time'</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="err">'date'</span><span class="p">:</span><span class="w"> </span><span class="mi">20180302</span><span class="p">,</span><span class="w">
-            </span><span class="err">'time'</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">67</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"분기보고서 (2018.03)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-14"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"submitter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"아이크래프트"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"info_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://dart.fss.or.kr/dsaf001/main.do?rcpNo=20180514005425"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">66</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"연결재무제표기준 영업(잠정)실적(공정공시)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"submitter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"아이크래프트"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"info_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://dart.fss.or.kr/dsaf001/main.do?rcpNo=20180510900661"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">67</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<blockquote>
-<p>영업사원이나 팀장의 Response:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="err">'user'</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
-    </span><span class="err">'yymm'</span><span class="p">:</span><span class="w"> </span><span class="mi">1803</span><span class="p">,</span><span class="w">
-    </span><span class="err">'worktimes'</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="err">'date'</span><span class="p">:</span><span class="w"> </span><span class="mi">20180301</span><span class="p">,</span><span class="w">
-            </span><span class="err">'project'</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-            </span><span class="err">'worker'</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="err">'date'</span><span class="p">:</span><span class="w"> </span><span class="mi">20180302</span><span class="p">,</span><span class="w">
-            </span><span class="err">'project'</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-            </span><span class="err">'worker'</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>사용자의 이번 달 일정을 호출. header의 토큰값을 기준으로 사용자의  계정과 권한을 확인하여 일정 등록 여부를 결정. 개발자 팀원의 경우, 자신의 일정만 볼 수 있고, 영업직은 자신이 프로젝트 일정을 열람 가능하고, 개발 팀장의 경우 팀 소속 모든 팀원들의 일정 열람 가능.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p>기본 경로: <code>GET /calendars/</code></p>
-
-<p>날짜 명시: <code>GET /calendars/{yymm}</code></p>
-
-<p>팀내 타 사용자의 일정 열람: <code>GET /calendar/{yymm}/{user}</code></p>
-<h3 id='arguments'>Arguments</h3>
+<p>공시 정보(disclosure)는 투자에 올바른 판단을 하실 수 있도록 제공되는 아이크래프트의 공시정보입니다. 공시정보중 <code>info_url</code>은 전자공시 사이트인 <a href="https://dart.fss.or.kr/">다트</a>로 연결됩니다. </p>
+<h3 id='query-string'>Query String</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>yymm</td>
-<td>날짜</td>
+<td>page</td>
+<td>optional, default=1</td>
+<td>페이지 수, 10개 단위로 페이지가 구분됩니다.</td>
 </tr>
 <tr>
-<td>user</td>
-<td>사용자 ID</td>
+<td>search</td>
+<td>optional</td>
+<td>검색어와 <code>title</code>을 비교하여, 검색어가 포함된 경우 결괏값을 리턴합니다.</td>
 </tr>
 </tbody></table>
-
-<ul>
-<li>기본 경로로 호출할 경우 로그인한 유저의 이번달 일정 반환. </li>
-<li>날짜를 명시해서 호출할 경우 해당 개월의 일정이 반환되며, url은 바뀌지 않게 할 에정. </li>
-<li>팀장이 자신의 팀 소속 다른 팀원의 일정에 접속할 경우, <code>yymm</code>과 해당 <code>user</code>의 ID로 호출. </li>
-</ul>
 <h3 id='returns'>Returns</h3>
 <table><thead>
 <tr>
@@ -365,69 +364,139 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>user</td>
-<td>사용자 ID</td>
-</tr>
-<tr>
-<td>yymm</td>
-<td>날짜</td>
-</tr>
-<tr>
-<td>worktimes</td>
-<td>일정 리스트</td>
+<td>title</td>
+<td>공시 제목</td>
 </tr>
 <tr>
 <td>date</td>
-<td>날짜</td>
+<td>시간</td>
 </tr>
 <tr>
-<td>time</td>
-<td>근무 시간</td>
+<td>submitter</td>
+<td>제출인</td>
 </tr>
 <tr>
-<td>project</td>
-<td>진행한 프로젝트 갯수</td>
+<td>info_url</td>
+<td>공시 정보 링크</td>
 </tr>
 <tr>
-<td>worker</td>
-<td>프로젝트에 참여한 인원수</td>
+<td>total</td>
+<td>전체 <code>Disclosure object</code> 갯수</td>
 </tr>
 </tbody></table>
-<h2 id='post-my-schedule'>Post my schedule</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://example.com/api/daily/2 </span><span class="se">\</span><span class="s2">
--d user=123 </span><span class="se">\</span><span class="s2">
--d  date=20180301 </span><span class="se">\</span><span class="s2">
--d time=8
-</span></code></pre><pre class="highlight python tab-python"><code><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="s">"http://example.com/api/daily/2 </span><span class="se">\
-</span><span class="err">
-</span></code></pre>
+<h2 id='post'>Post</h2>
 <blockquote>
-<p>Response:</p>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/disclosure'</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="nx">title</span><span class="p">,</span>
+    <span class="s2">"submitter"</span><span class="p">:</span> <span class="nx">submitter</span><span class="p">,</span>
+    <span class="s2">"info_url"</span><span class="p">:</span> <span class="nx">info_url</span>
+  <span class="p">}),</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="w">
+    </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>개인별 일정 등록. 개발자의 경우 일정한 규칙에 따라 일정을 등록해야 하며, 규칙에 맞지 않는다면 실패 메세지 반환. 개발 팀장의 경우 근로기준법을 위반하는 입력 값을 제외하고 모두 입력 가능.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST /calendar/{user}</code></p>
-<h3 id='arguments-2'>Arguments</h3>
+<p>공시 정보 등록. <code>POST</code> 메소드는 등록된 사용자만 <code>access token</code>을 가지고 사용 할수 있으며, 위 <code>Authentication</code> 내용을 참고 부탁드립니다.  </p>
+<h3 id='query-string-2'>Query String</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>user</td>
-<td>사용자 ID</td>
+<td>title</td>
+<td>string</td>
+<td>공시 제목</td>
 </tr>
 <tr>
-<td>date</td>
-<td>입력하는 날짜</td>
+<td>submitter</td>
+<td>string</td>
+<td>제출인</td>
 </tr>
 <tr>
-<td>time</td>
-<td>근무 시간</td>
+<td>info_url</td>
+<td>url</td>
+<td>공시 정보 링크</td>
+</tr>
+<tr>
+<td>disclosure_id</td>
+<td>optional, default=-1</td>
+<td>기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.</td>
+</tr>
+</tbody></table>
+<h1 id='news'>News</h1><h2 id='get-2'>GET</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/news?page='</span> <span class="o">+</span> <span class="nx">pageNum</span> <span class="o">+</span> <span class="s1">'&amp;search'</span> <span class="o">+</span> <span class="nx">searchString</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"아이크래프트,정품∙가짜 99%인식하는 최첨단 위변조방지 솔루션 세계 첫 상용화"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-09"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">49</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"올해 주총 신규사업 핫 아이템은 암호화폐"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-09"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"590"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">51</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>News는 아이크래프트 보도 자료 소식입니다.</p>
+<h3 id='query-string-3'>Query String</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>optional, default=1</td>
+<td>페이지 수, 10개 단위로 페이지가 구분됩니다.</td>
+</tr>
+<tr>
+<td>search</td>
+<td>optional</td>
+<td>검색어와 <code>title</code>을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.</td>
+</tr>
+<tr>
+<td>news_id</td>
+<td>optional</td>
+<td>1개의 기사에 관한 세부 정보를 보고 싶을 경우, <code>id</code>를 전송하면 기사 세부 내용을 전달합니다.</td>
 </tr>
 </tbody></table>
 <h3 id='returns-2'>Returns</h3>
@@ -438,21 +507,144 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>response</td>
-<td>결괏값</td>
+<td>id</td>
+<td>보도자료 번호</td>
+</tr>
+<tr>
+<td>title</td>
+<td>제목</td>
+</tr>
+<tr>
+<td>date</td>
+<td>시간</td>
+</tr>
+<tr>
+<td>count</td>
+<td>조회수</td>
+</tr>
+<tr>
+<td>total</td>
+<td>전체 <code>News object</code> 갯수</td>
+</tr>
+<tr>
+<td>body</td>
+<td>기사 내용 (article로 호출할 경우만 리턴)</td>
 </tr>
 </tbody></table>
-<h1 id='4938fae00b'>통계</h1><h2 id='9d7b728bb8'>엑셀 추출</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/excel/2
-</span></code></pre>
+<h2 id='post-2'>POST</h2>
 <blockquote>
-<p>Response:</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="err">.csv</span><span class="w"> </span><span class="err">file</span><span class="w">
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/news,
+  data: JSON.stringify({
+    "title": title,
+    "body": body
+  }),
+  contentType: '</span><span class="nx">application</span><span class="o">/</span><span class="nx">json</span><span class="err">'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>유형별 엑셀 추출.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET /excel/{type}</code></p>
-<h3 id='arguments-3'>Arguments</h3>
+<p>아이크래프트 보도 자료 등록. <code>POST</code> 메소드는 등록된 사용자만 <code>access token</code>을 가지고 사용 할수 있으며, 위 <code>Authentication</code> 내용을 참고 부탁드립니다. </p>
+<h3 id='query-string-4'>Query String</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>news_id</td>
+<td>optional, default=-1</td>
+<td>기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id값이 보내진다면 해당 내용으로 업데이트합니다.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>공시 제목</td>
+</tr>
+<tr>
+<td>body</td>
+<td>html</td>
+<td>기사 내용</td>
+</tr>
+</tbody></table>
+<h1 id='recruit'>Recruit</h1><h2 id='get-3'>GET</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/recruit?page='</span> <span class="o">+</span> <span class="nx">pageNum</span> <span class="o">+</span> <span class="s1">'&amp;search'</span> <span class="o">+</span> <span class="nx">searchString</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"아이크래프트 2018년도 상반기 신입사원 모집공고"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-05"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"kinds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"신입"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"221"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"아이크래프트 2017년도 하반기 경력사원 모집공고"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-06-29"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"kinds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"경력"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"584"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Recruit는 채용 게시판 정보입니다.</p>
+<h3 id='query-string-5'>Query String</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>optional, default=1</td>
+<td>페이지 수, 10개 단위로 페이지가 구분됩니다.</td>
+</tr>
+<tr>
+<td>search</td>
+<td>optional</td>
+<td>검색어와 <code>title</code>을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.</td>
+</tr>
+<tr>
+<td>recruit_id</td>
+<td>optional</td>
+<td>1개의 기사에 관한 세부 정보를 보고 싶을 경우, <code>id</code>를 전송하면 기사 세부 내용을 전달합니다.</td>
+</tr>
+</tbody></table>
+<h3 id='returns-3'>Returns</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -460,19 +652,87 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>type</td>
-<td>통계 유형</td>
+<td>id</td>
+<td>기사 번호</td>
+</tr>
+<tr>
+<td>title</td>
+<td>제목</td>
+</tr>
+<tr>
+<td>date</td>
+<td>시간</td>
+</tr>
+<tr>
+<td>kind</td>
+<td>채용 구분</td>
+</tr>
+<tr>
+<td>available</td>
+<td>상태</td>
+</tr>
+<tr>
+<td>count</td>
+<td>조회수</td>
+</tr>
+<tr>
+<td>total</td>
+<td>전체 <code>Recruit object</code> 갯수</td>
+</tr>
+<tr>
+<td>body</td>
+<td>내용 (<code>recruit_id</code>로 호출할 경우만 리턴)</td>
 </tr>
 </tbody></table>
-<h3 id='returns-3'>Returns</h3>
-<p>.csv file</p>
+<h2 id='post-3'>POST</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/recruit,
+  data: JSON.stringify({
+    "title": title,
+    "body": body
+  }),
+  contentType: '</span><span class="nx">application</span><span class="o">/</span><span class="nx">json</span><span class="err">'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>아이크래프트 채용 정보 등록. <code>POST</code> 메소드는 등록된 사용자만 <code>access token</code>을 가지고 사용 할수 있으며, 위 <code>Authentication</code> 내용을 참고 부탁드립니다. </p>
+<h3 id='query-string-6'>Query String</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>공시 제목</td>
+</tr>
+<tr>
+<td>body</td>
+<td>html</td>
+<td>기사 내용</td>
+</tr>
+<tr>
+<td>recrtui_id</td>
+<td>optional, default=-1</td>
+<td>기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.</td>
+</tr>
+</tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
-
 <table><thead>
 <tr>
 <th>Error Code</th>
@@ -489,15 +749,15 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The ICRAFT requested is hidden for administrators only.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified ICRAFT could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access a ICRAFT with an invalid method.</td>
 </tr>
 <tr>
 <td>406</td>
@@ -505,15 +765,11 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>Gone -- The ICRAFT requested has been removed from our servers.</td>
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests -- You&#39;re requesting too many to ICRAFT! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
@@ -528,8 +784,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
