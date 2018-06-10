@@ -1,12 +1,13 @@
 ---
-title: API Reference
+title: ICRAFT API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - python
+  - javascript
 
 toc_footers:
-  - <a href='https://blackruby.studio'>BlackRuby Homepage</a>
+  - <a href='https://www.icraft21.com'>ICRAFT Homepage</a>
+  - Made by <a href='https://blackruby.studio'>BlackRubyStudio</a>
+  - info@blackrubystudio.com
 
 includes:
   - errors
@@ -16,193 +17,332 @@ search: true
 
 # Introduction
 
-## iMMS API
+## ICRAFT API
 
-iMMS API는 iMMS 서버에 연동하여 서비스를 제공하기 위한 API이며, 개발자, 영업 사원, 개발 팀장이 자신의 혹의 자신이 소속된 팀의 일정을 볼 수 있는 서비스입니다.
+> API Endpoint
 
-좌측에는 메소드와 파라미터에 대한 설명을 명시했으며, 우측에는 shell과 python을 이용한 코드 예시를 보여줍니다. 우측 상단에서 예시 언어를 변경 할 수 있습니다.
+```shell
+https://api.icraft21.com/prod/
+```
+
+ICRAFT API는 아이크래프트 홈페이지와 연동하여 뉴스/주가/공시 정보/채용 정보등을 제공하기 위한 API입니다. 아이크래프트에 관심이 있고 소식을 받아 보고 싶으신 분들을 위하여 API 문서를 공개합니다.
+
+API는 사용하기 최대한 용이하게 설계되어 있어, 각 object의 parameter만 파악하시면 쉽게 사용하실 수 있습니다.
+
+좌측에는 호출하는 함수와 함수에 필요한 변수를 표시했으며, 우측에는 javascript를 이용해서 웹에서 호출할 수 있는 코드 예시를 보여줍니다.
+
+문서상이나 API 자체에 문제가 있거나 건의사항이 있을 경우 언제든 `info@blackrubystudio.com`이나 [Github repository](https://github.com/zaiyou12/icraft-api)로 문의 주세요. 
 
 # Authentication
 
-> To authorize, use this code:
+> 구체적인 방법은 SDK와 토큰을 발급 받을 시, 코드 예시와 주석을 참고해주세요.
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+정보를 받아보기 위한 `GET` 메소드에서는 특별한 인증 절차가 없습니다.
 
-```python
-# With shell, you can just pass the correct header with each request
-
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+<aside class="warning">
+ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사용할 수 있습니다. 계정등록을 원하신다면 <strong>info@blackrubystudio.com</strong>으로 연락주시기 바랍니다. 
 </aside>
 
-# 일정
+# Disclosure
 
-## Get my Calendar
+## Get
 
-```shell
-curl "http://example.com/api/daily/1/1803
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'GET',
+  url: 'https://api.icraft21.com/prod/disclosure?page=' + pageNum + '&search' + searchString,
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
 ```
 
-```python
-curl "http://example.com/api/daily/1/1803
-```
-
-> 개발자의 Response:
+> Example Response:
 
 ```json
 {
-	'user': 123,
-	'yymm': 1803,
-	'worktimes':[
-		{
-			'date': 20180301,
-			'time': 8
-		},
-		{
-			'date': 20180302,
-			'time': 6
-		}
-	]
+  "statusCode": 200,
+  "body": {
+    "result": [
+      {
+        "id": 67,
+        "title": "분기보고서 (2018.03)",
+        "date": "2018-05-14",
+        "submitter": "아이크래프트",
+        "info_url": "http://dart.fss.or.kr/dsaf001/main.do?rcpNo=20180514005425"
+      },
+      {
+        "id": 66,
+        "title": "연결재무제표기준 영업(잠정)실적(공정공시)",
+        "date": "2018-05-10",
+        "submitter": "아이크래프트",
+        "info_url": "http://dart.fss.or.kr/dsaf001/main.do?rcpNo=20180510900661"
+      }
+    },
+    "total": 67
+  }
 }
 ```
 
-> 영업사원이나 팀장의 Response:
+공시 정보(disclosure)는 투자에 올바른 판단을 하실 수 있도록 제공되는 아이크래프트의 공시정보입니다. 공시정보중 `info_url`은 전자공시 사이트인 [다트](https://dart.fss.or.kr/)로 연결됩니다. 
 
-```json
-{
-	'user': 123,
-	'yymm': 1803,
-	'worktimes': [
-		{
-			'date': 20180301,
-			'project': 3,
-			'worker': 8
-		},
-		{
-			'date': 20180302,
-			'project': 2,
-			'worker': 5
-		}
-	]
-}
-```
+### Query String
 
-사용자의 이번 달 일정을 호출. header의 토큰값을 기준으로 사용자의  계정과 권한을 확인하여 일정 등록 여부를 결정. 개발자 팀원의 경우, 자신의 일정만 볼 수 있고, 영업직은 자신이 프로젝트 일정을 열람 가능하고, 개발 팀장의 경우 팀 소속 모든 팀원들의 일정 열람 가능.
-
-### HTTP Request
-
-기본 경로: `GET /calendars/`
-
-날짜 명시: `GET /calendars/{yymm}`
-
-팀내 타 사용자의 일정 열람: `GET /calendar/{yymm}/{user}`
-
-### Arguments
-
-Parameter | Description
---------- |-----------
-yymm | 날짜
-user | 사용자 ID
-
-- 기본 경로로 호출할 경우 로그인한 유저의 이번달 일정 반환. 
-- 날짜를 명시해서 호출할 경우 해당 개월의 일정이 반환되며, url은 바뀌지 않게 할 에정. 
-- 팀장이 자신의 팀 소속 다른 팀원의 일정에 접속할 경우, `yymm`과 해당 `user`의 ID로 호출. 
+Parameter | Type | Description
+---------|-----------|-----------
+page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
+search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 리턴합니다.
 
 ### Returns
 
 Parameter | Description
 --------- |-----------
-user | 사용자 ID
-yymm | 날짜
-worktimes | 일정 리스트
-date | 날짜
-time | 근무 시간
-project | 진행한 프로젝트 갯수
-worker | 프로젝트에 참여한 인원수
+title | 공시 제목
+date | 시간
+submitter | 제출인
+info_url | 공시 정보 링크
+total | 전체 `Disclosure object` 갯수
 
 
-## Post my schedule
+## Post
 
-```shell
-curl -X POST "http://example.com/api/daily/2 \
--d user=123 \
--d	date=20180301 \
--d time=8
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/disclosure',
+  data: JSON.stringify({
+    "title": title,
+    "submitter": submitter,
+    "info_url": info_url
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
 ```
 
-```python
-curl -X POST "http://example.com/api/daily/2 \
-
-```
-
-> Response:
+> Example Response:
 
 ```json
 {
-	"response": 201
+	"statusCode": 201
 }
 ```
 
-개인별 일정 등록. 개발자의 경우 일정한 규칙에 따라 일정을 등록해야 하며, 규칙에 맞지 않는다면 실패 메세지 반환. 개발 팀장의 경우 근로기준법을 위반하는 입력 값을 제외하고 모두 입력 가능.
+공시 정보 등록. `POST` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다.  
 
-### HTTP Request
+### Query String
 
-`POST /calendar/{user}`
+Parameter | Type | Description
+--------- |----------- |-----------
+title | string | 공시 제목
+submitter | string | 제출인
+info_url | url | 공시 정보 링크
+disclosure_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
 
-### Arguments
 
-Parameter | Description
---------- |-----------
-user | 사용자 ID
-date | 입력하는 날짜
-time | 근무 시간
+# News
 
-### Returns
+## GET
 
-Parameter | Description
---------- |-----------
-response | 결괏값
+> Example Request
 
-# 통계
-
-## 엑셀 추출
-
-```shell
-curl "http://example.com/api/excel/2
+```javascript
+$.ajax({
+  method: 'GET',
+  url: 'https://api.icraft21.com/prod/news?page=' + pageNum + '&search' + searchString,
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
 ```
 
-> Response:
+> Example Response:
 
 ```json
-.csv file
+{
+  "statusCode": 200,
+  "body": {
+    "result": [
+      {
+        "id": 51,
+        "title": "아이크래프트,정품∙가짜 99%인식하는 최첨단 위변조방지 솔루션 세계 첫 상용화",
+        "date": "2018-06-09",
+        "count": "90"
+      },
+      {
+        "id": 49,
+        "title": "올해 주총 신규사업 핫 아이템은 암호화폐",
+        "date": "2018-03-09",
+        "count": "590"
+      }
+    },
+    "total": 51
+  }
+}
 ```
 
-유형별 엑셀 추출.
+News는 아이크래프트 보도 자료 소식입니다.
 
-### HTTP Request
+### Query String
 
-`GET /excel/{type}`
-
-### Arguments
-
-Parameter | Description
---------- |-----------
-type | 통계 유형
+Parameter | Type | Description
+---------|-----------|-----------
+page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
+search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.
+news_id | optional | 1개의 기사에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 
 ### Returns
 
-.csv file
+Parameter | Description
+--------- |-----------
+id | 보도자료 번호
+title | 제목
+date | 시간
+count | 조회수
+total | 전체 `News object` 갯수
+body | 기사 내용 (article로 호출할 경우만 리턴)
+
+## POST
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/news,
+  data: JSON.stringify({
+    "title": title,
+    "body": body
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+  "statusCode": 201,
+}
+```
+
+아이크래프트 보도 자료 등록. `POST` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다. 
+
+### Query String
+
+Parameter | Type | Description
+--------- |-----------| -----------
+news_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id값이 보내진다면 해당 내용으로 업데이트합니다.
+title | string | 공시 제목
+body | html |기사 내용
+
+# Recruit
+
+## GET
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'GET',
+  url: 'https://api.icraft21.com/prod/recruit?page=' + pageNum + '&search' + searchString,
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+  "statusCode": 200,
+  "body": {
+    "result": [
+      {
+        "id": 14,
+        "title": "아이크래프트 2018년도 상반기 신입사원 모집공고",
+        "date": "2018-01-05",
+        "kinds": "신입",
+        "available": true,
+        "count": "221"
+      },
+      {
+        "id": 13,
+        "title": "아이크래프트 2017년도 하반기 경력사원 모집공고",
+        "date": "2017-06-29",
+        "kinds": "경력",
+        "available": false,
+        "count": "584"
+      }
+    },
+    "total": 14
+  }
+}
+```
+
+Recruit는 채용 게시판 정보입니다.
+
+### Query String
+
+Parameter | Type | Description
+---------|-----------|-----------
+page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
+search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.
+recruit_id | optional | 1개의 기사에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
+
+### Returns
+
+Parameter | Description
+--------- |-----------
+id | 기사 번호
+title | 제목
+date | 시간
+kind | 채용 구분
+available | 상태
+count | 조회수
+total | 전체 `Recruit object` 갯수
+body | 내용 (`recruit_id`로 호출할 경우만 리턴)
+
+## POST
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/recruit,
+  data: JSON.stringify({
+    "title": title,
+    "body": body
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+  "statusCode": 201,
+}
+```
+
+아이크래프트 채용 정보 등록. `POST` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다. 
+
+### Query String
+
+Parameter | Type | Description
+--------- |----------- |-----------
+title | string | 공시 제목
+body | html | 기사 내용
+recrtui_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
