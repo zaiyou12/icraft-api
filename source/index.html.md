@@ -37,7 +37,7 @@ API는 사용하기 최대한 용이하게 설계되어 있어, 각 object의 pa
 
 > 구체적인 방법은 SDK와 토큰을 발급 받을 시, 코드 예시와 주석을 참고해주세요.
 
-정보를 받아보기 위한 `GET` 메소드에서는 특별한 인증 절차가 없습니다.
+정보를 받아보기 위한 `GET` 메소드에서는 특별한 인증 절차가 없습니다. 고객소리방의 문의하기 기능은 `POST` 메소드들중 유일하게 인증 절차가 없고, 그 외 모든 `POST` 메소드들은 별도의 인증 절차가 있습니다.
 
 <aside class="warning">
 ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사용할 수 있습니다. 계정등록을 원하신다면 <strong>info@blackrubystudio.com</strong>으로 연락주시기 바랍니다. 
@@ -99,7 +99,7 @@ search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된
 
 Parameter | Description
 --------- |-----------
-title | 공시 제목
+title | 제목
 date | 시간
 submitter | 제출인
 info_url | 공시 정보 링크
@@ -194,13 +194,13 @@ Parameter | Type | Description
 ---------|-----------|-----------
 page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
 search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.
-news_id | optional | 1개의 기사에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
+news_id | optional | 1개의 개별 `object`에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 
 ### Returns
 
 Parameter | Description
 --------- |-----------
-id | 보도자료 번호
+id | 번호
 title | 제목
 date | 시간
 count | 조회수
@@ -242,6 +242,7 @@ Parameter | Type | Description
 news_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id값이 보내진다면 해당 내용으로 업데이트합니다.
 title | string | 공시 제목
 body | html |기사 내용
+
 
 # Recruit
 
@@ -296,13 +297,13 @@ Parameter | Type | Description
 ---------|-----------|-----------
 page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
 search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.
-recruit_id | optional | 1개의 기사에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
+recruit_id | optional | 개별 `object`에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 
 ### Returns
 
 Parameter | Description
 --------- |-----------
-id | 기사 번호
+id | 번호
 title | 제목
 date | 시간
 kind | 채용 구분
@@ -343,6 +344,48 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |----------- |-----------
-title | string | 공시 제목
-body | html | 기사 내용
+title | string | 제목
+body | html | 내용
 recrtui_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
+
+
+# Contact
+
+## POST
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/contact,
+  data: JSON.stringify({
+    "title": title,
+    "name": name,
+    "email": email,
+    "message": message,
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+  "statusCode": 201,
+}
+```
+
+아이크래프트 채용 정보 등록. `POST` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다. 
+
+### Query String
+
+Parameter | Type | Description
+--------- |----------- |-----------
+title | string | 제목
+name | string | 이름
+email | email | 이메일
+message | string | 문의사항
