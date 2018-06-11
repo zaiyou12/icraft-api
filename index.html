@@ -263,6 +263,14 @@
               </ul>
           </li>
           <li>
+            <a href="#contact" class="toc-h1 toc-link" data-title="contact">Contact</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#post-4" class="toc-h2 toc-link" data-title="post">POST</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
@@ -293,7 +301,7 @@
 <p>구체적인 방법은 SDK와 토큰을 발급 받을 시, 코드 예시와 주석을 참고해주세요.</p>
 </blockquote>
 
-<p>정보를 받아보기 위한 <code>GET</code> 메소드에서는 특별한 인증 절차가 없습니다.</p>
+<p>정보를 받아보기 위한 <code>GET</code> 메소드에서는 특별한 인증 절차가 없습니다. 고객소리방의 문의하기 기능은 <code>POST</code> 메소드들중 유일하게 인증 절차가 없고, 그 외 모든 <code>POST</code> 메소드들은 별도의 인증 절차가 있습니다.</p>
 
 <aside class="warning">
 ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사용할 수 있습니다. 계정등록을 원하신다면 <strong>info@blackrubystudio.com</strong>으로 연락주시기 바랍니다. 
@@ -365,7 +373,7 @@ ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사
 </thead><tbody>
 <tr>
 <td>title</td>
-<td>공시 제목</td>
+<td>제목</td>
 </tr>
 <tr>
 <td>date</td>
@@ -496,7 +504,7 @@ ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사
 <tr>
 <td>news_id</td>
 <td>optional</td>
-<td>1개의 기사에 관한 세부 정보를 보고 싶을 경우, <code>id</code>를 전송하면 기사 세부 내용을 전달합니다.</td>
+<td>1개의 개별 <code>object</code>에 관한 세부 정보를 보고 싶을 경우, <code>id</code>를 전송하면 기사 세부 내용을 전달합니다.</td>
 </tr>
 </tbody></table>
 <h3 id='returns-2'>Returns</h3>
@@ -508,7 +516,7 @@ ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>보도자료 번호</td>
+<td>번호</td>
 </tr>
 <tr>
 <td>title</td>
@@ -641,7 +649,7 @@ ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사
 <tr>
 <td>recruit_id</td>
 <td>optional</td>
-<td>1개의 기사에 관한 세부 정보를 보고 싶을 경우, <code>id</code>를 전송하면 기사 세부 내용을 전달합니다.</td>
+<td>개별 <code>object</code>에 관한 세부 정보를 보고 싶을 경우, <code>id</code>를 전송하면 기사 세부 내용을 전달합니다.</td>
 </tr>
 </tbody></table>
 <h3 id='returns-3'>Returns</h3>
@@ -653,7 +661,7 @@ ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>기사 번호</td>
+<td>번호</td>
 </tr>
 <tr>
 <td>title</td>
@@ -719,17 +727,72 @@ ICRAFT API는 인증 받은 사용자만 SDK와 access token를 발급받아 사
 <tr>
 <td>title</td>
 <td>string</td>
-<td>공시 제목</td>
+<td>제목</td>
 </tr>
 <tr>
 <td>body</td>
 <td>html</td>
-<td>기사 내용</td>
+<td>내용</td>
 </tr>
 <tr>
 <td>recrtui_id</td>
 <td>optional, default=-1</td>
 <td>기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.</td>
+</tr>
+</tbody></table>
+<h1 id='contact'>Contact</h1><h2 id='post-4'>POST</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.icraft21.com/prod/contact,
+  data: JSON.stringify({
+    "title": title,
+    "name": name,
+    "email": email,
+    "message": message,
+  }),
+  contentType: '</span><span class="nx">application</span><span class="o">/</span><span class="nx">json</span><span class="err">'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="nx">completeRequest</span><span class="p">,</span>
+  <span class="na">error</span><span class="p">:</span> <span class="nx">errorRequest</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>아이크래프트 채용 정보 등록. <code>POST</code> 메소드는 등록된 사용자만 <code>access token</code>을 가지고 사용 할수 있으며, 위 <code>Authentication</code> 내용을 참고 부탁드립니다. </p>
+<h3 id='query-string-7'>Query String</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>제목</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>이름</td>
+</tr>
+<tr>
+<td>email</td>
+<td>email</td>
+<td>이메일</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>문의사항</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
