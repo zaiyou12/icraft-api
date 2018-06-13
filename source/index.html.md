@@ -106,7 +106,7 @@ info_url | 공시 정보 링크
 total | 전체 `Disclosure object` 갯수
 
 
-## Post
+## POST
 
 > Example Request
 
@@ -143,6 +143,42 @@ title | string | 공시 제목
 submitter | string | 제출인
 info_url | url | 공시 정보 링크
 disclosure_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
+
+
+## DELETE
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/delete',
+  data: JSON.stringify({
+    "object_id": 1,
+    "object_name": "disclosure",
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+	"statusCode": 200
+}
+```
+
+공시 정보 삭제. `DELETE` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다.  
+
+### Query String
+
+Parameter | Type | Description
+--------- |----------- |-----------
+object_id | int | 아이디 값
+object_name | string | object 이름
 
 
 # News
@@ -217,7 +253,8 @@ $.ajax({
   url: 'https://api.icraft21.com/prod/news,
   data: JSON.stringify({
     "title": title,
-    "body": body
+    "body": body,
+    "date": "2018-06-13",
   }),
   contentType: 'application/json',
   success: completeRequest,
@@ -240,8 +277,45 @@ $.ajax({
 Parameter | Type | Description
 --------- |-----------| -----------
 news_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id값이 보내진다면 해당 내용으로 업데이트합니다.
-title | string | 공시 제목
+title | string | 제목
 body | html |기사 내용
+date | optional, default=now(), date | 날짜, 형식: '%Y-%m-%d'
+
+
+## DELETE
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/delete',
+  data: JSON.stringify({
+    "object_id": 1,
+    "object_name": "news",
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+	"statusCode": 200
+}
+```
+
+공시 정보 삭제. `DELETE` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다.  
+
+### Query String
+
+Parameter | Type | Description
+--------- |----------- |-----------
+object_id | int | 아이디 값
+object_name | string | object 이름
 
 
 # Recruit
@@ -322,7 +396,10 @@ $.ajax({
   url: 'https://api.icraft21.com/prod/recruit,
   data: JSON.stringify({
     "title": title,
-    "body": body
+    "body": body,
+    "kinds": "경력",
+    "date": "2018-06-29",
+    "available": false
   }),
   contentType: 'application/json',
   success: completeRequest,
@@ -346,7 +423,46 @@ Parameter | Type | Description
 --------- |----------- |-----------
 title | string | 제목
 body | html | 내용
+kinds | string | 지원 구분
+date | optional, default=now(), date | 날짜, 형식: '%Y-%m-%d'
+available | optional, default=false, bool | 지원 가능 여부
 recrtui_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
+
+
+## DELETE
+
+> Example Request
+
+```javascript
+$.ajax({
+  method: 'POST',
+  url: 'https://api.icraft21.com/prod/delete',
+  data: JSON.stringify({
+    "object_id": 1,
+    "object_name": "recruit",
+  }),
+  contentType: 'application/json',
+  success: completeRequest,
+  error: errorRequest
+});
+```
+
+> Example Response:
+
+```json
+{
+	"statusCode": 200
+}
+```
+
+공시 정보 삭제. `DELETE` 메소드는 등록된 사용자만 `access token`을 가지고 사용 할수 있으며, 위 `Authentication` 내용을 참고 부탁드립니다.  
+
+### Query String
+
+Parameter | Type | Description
+--------- |----------- |-----------
+object_id | int | 아이디 값
+object_name | string | object 이름
 
 
 # Contact
