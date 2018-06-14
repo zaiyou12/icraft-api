@@ -139,10 +139,10 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |----------- |-----------
+id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
 title | string | 공시 제목
 submitter | string | 제출인
 info_url | url | 공시 정보 링크
-disclosure_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
 
 
 ## DELETE
@@ -154,7 +154,7 @@ $.ajax({
   method: 'POST',
   url: 'https://api.icraft21.com/prod/delete',
   data: JSON.stringify({
-    "object_id": 1,
+    "id": 1,
     "object_name": "disclosure",
   }),
   contentType: 'application/json',
@@ -177,7 +177,7 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |----------- |-----------
-object_id | int | 아이디 값
+id | int | 아이디 값
 object_name | string | object 이름
 
 
@@ -228,9 +228,9 @@ News는 아이크래프트 보도 자료 소식입니다.
 
 Parameter | Type | Description
 ---------|-----------|-----------
+id | optional | 1개의 개별 `object`에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
 search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.
-news_id | optional | 1개의 개별 `object`에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 
 ### Returns
 
@@ -276,7 +276,7 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |-----------| -----------
-news_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id값이 보내진다면 해당 내용으로 업데이트합니다.
+id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id값이 보내진다면 해당 내용으로 업데이트합니다.
 title | string | 제목
 body | html |기사 내용
 date | optional, default=now(), date | 날짜, 형식: '%Y-%m-%d'
@@ -314,7 +314,7 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |----------- |-----------
-object_id | int | 아이디 값
+id | int | 아이디 값
 object_name | string | object 이름
 
 
@@ -369,9 +369,9 @@ Recruit는 채용 게시판 정보입니다.
 
 Parameter | Type | Description
 ---------|-----------|-----------
+id | optional | 개별 `object`에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 page | optional, default=1 | 페이지 수, 10개 단위로 페이지가 구분됩니다.
 search | optional | 검색어와 `title`을 비교하여, 검색어가 포함된 경우 결괏값을 전달합니다.
-recruit_id | optional | 개별 `object`에 관한 세부 정보를 보고 싶을 경우, `id`를 전송하면 기사 세부 내용을 전달합니다.
 
 ### Returns
 
@@ -421,12 +421,12 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |----------- |-----------
+id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
 title | string | 제목
 body | html | 내용
 kinds | string | 지원 구분
 date | optional, default=now(), date | 날짜, 형식: '%Y-%m-%d'
 available | optional, default=false, bool | 지원 가능 여부
-recrtui_id | optional, default=-1 | 기본값으로 보내거나 포함시키지 않을 경우 자동으로 신규 object가 생성됩니다. id가 보내진다면 해당 내용으로 업데이트합니다.
 
 
 ## DELETE
@@ -461,7 +461,7 @@ $.ajax({
 
 Parameter | Type | Description
 --------- |----------- |-----------
-object_id | int | 아이디 값
+id | int | 아이디 값
 object_name | string | object 이름
 
 
